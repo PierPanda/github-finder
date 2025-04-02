@@ -31,13 +31,13 @@ export default function UsersList({ users, loading, handleClick }) {
 
   return users?.length > 0 ? (
     <ul
-      className="fixed top-5 bottom-5 p-5 flex max-h-screen w-120 flex-col justify-start gap-2 m-5 overflow-auto z-10 hide-scrollbar"
+      className="fixed top-5 bottom-5 p-5 flex max-h-screen w-90 flex-col justify-start gap-2 m-5 overflow-auto z-10 hide-scrollbar"
       style={{ listStyle: "none" }}
     >
       {users.map((user) => (
         <li
           key={user.id}
-          className={`border bg-amber-50 border-gray-300 w-100 text-center rounded-md p-2 cursor-pointer hover:border-blue-500 ${
+          className={`border bg-amber-50 border-gray-300 w-80 text-center rounded-md p-2 cursor-pointer hover:border-blue-500 ${
             lastUser === user.login ? "bg-blue-50" : ""
           }`}
           onClick={(e) => handleUserClick(e, user.login)}
