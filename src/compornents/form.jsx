@@ -1,12 +1,13 @@
 import React from "react";
+import githubLogo from "../assets/github-icon.png";
 
 export default function form({ handleSubmit }) {
   return (
-    <div className="flex items-center justify-center my-12 px-4">
+    <div className="flex items-center rounded-full justify-center my-12 px-4">
       <div className="relative w-full max-w-2xl">
         <form onSubmit={handleSubmit} className="flex items-center">
           <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-            🔍
+            <img className="w-8 h-8" src={githubLogo} alt="GitHub logo" />
           </div>
 
           <input
