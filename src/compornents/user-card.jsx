@@ -4,7 +4,6 @@ import UserRepoList from "./user-repo-list";
 export default function UserCard({ user, onClose }) {
   const [showRepos, setShowRepos] = useState(false);
 
-  // Gestionnaire pour fermer au clic en dehors de la modale
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {
       onClose();

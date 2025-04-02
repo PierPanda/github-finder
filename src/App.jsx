@@ -47,8 +47,7 @@ function App() {
         setSelectedUser(data);
       })
       .catch((error) => {
-        console.error("Erreur:", error);
-        alert("Impossible de charger les données utilisateur");
+        alert(error.message || "Impossible de charger les données utilisateur");
       });
   };
 
