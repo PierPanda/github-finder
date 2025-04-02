@@ -8,3 +8,10 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari et Opera */
 }
+
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}

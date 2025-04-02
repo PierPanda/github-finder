@@ -9,6 +9,18 @@ function App() {
   const [loading, setLoading] = React.useState(false);
   const [selectedUser, setSelectedUser] = React.useState(null);
 
+  // Empêcher le défilement seulement quand une modale est ouverte
+  React.useEffect(() => {
+    if (selectedUser) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [selectedUser]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const search = e.target.search.value;
@@ -23,7 +35,6 @@ function App() {
 
   const handleClick = (e, login) => {
     e.preventDefault();
-    console.log("handleClick appelé avec login:", login);
 
     if (login === null) {
       setSelectedUser(null);
@@ -33,7 +44,6 @@ function App() {
     fetch(`https://api.github.com/users/${login}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("Données utilisateur récupérées:", data);
         setSelectedUser(data);
       })
       .catch((error) => {
@@ -43,25 +53,20 @@ function App() {
   };
 
   return (
-    <>
-      <div className="max-wscreen h-screen overflow-hidden bg-[#0D1117]">
+    <div className="min-h-screen bg-[#0D1117] overflow-x-hidden flex flex-col">
+      <div className="flex flex-col justify-center items-center h-[60vh] md:h-[40vh] mb-10">
         <Title />
-        <Form handleSubmit={handleSubmit} />
-        <div>
-          <UsersList
-            users={users}
-            loading={loading}
-            handleClick={handleClick}
-          />
-          {selectedUser && selectedUser.login && (
-            <UserCard
-              user={selectedUser}
-              onClose={() => setSelectedUser(null)}
-            />
-          )}
+        <div className="w-full max-w-md md:max-w-2xl lg:max-w-3xl mt-4 md:mt-8 px-4">
+          <Form handleSubmit={handleSubmit} />
         </div>
       </div>
-    </>
+
+      <UsersList users={users} loading={loading} handleClick={handleClick} />
+
+      {selectedUser && selectedUser.login && (
+        <UserCard user={selectedUser} onClose={() => setSelectedUser(null)} />
+      )}
+    </div>
   );
 }
 
