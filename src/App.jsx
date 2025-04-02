@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import Form from "./compornents/form";
+import UsersList from "./compornents/users-list";
+import Title from "./compornents/title";
+import UserCard from "./compornents/user-card";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [users, setUsers] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [selectedUser, setSelectedUser] = React.useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const search = e.target.search.value;
+    setLoading(true);
+    fetch(`https://api.github.com/search/users?q=${search}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUsers(data.items);
+        setLoading(false);
+      });
+  };
+
+  const handleClick = (e, login) => {
+    e.preventDefault();
+    console.log("handleClick appelé avec login:", login);
+
+    if (login === null) {
+      setSelectedUser(null);
+      return;
+    }
+
+    fetch(`https://api.github.com/users/${login}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Données utilisateur récupérées:", data);
+        setSelectedUser(data);
+      })
+      .catch((error) => {
+        console.error("Erreur:", error);
+        alert("Impossible de charger les données utilisateur");
+      });
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="max-wscreen h-screen overflow-hidden bg-[#0D1117]">
+        <Title />
+        <Form handleSubmit={handleSubmit} />
+        <div>
+          <UsersList
+            users={users}
+            loading={loading}
+            handleClick={handleClick}
+          />
+          {selectedUser && selectedUser.login && (
+            <UserCard
+              user={selectedUser}
+              onClose={() => setSelectedUser(null)}
+            />
+          )}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
