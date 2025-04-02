@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+body {
+  box-sizing: content-box;
+  margin: 0;
+  padding: 5;
+}
+
 .hide-scrollbar {
   -ms-overflow-style: none; /* IE et Edge */
   scrollbar-width: none; /* Firefox */

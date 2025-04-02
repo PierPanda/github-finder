@@ -53,15 +53,17 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0D1117] overflow-x-hidden flex flex-col">
-      <div className="flex flex-col justify-center items-center h-[60vh] md:h-[40vh] mb-10">
+    <div className="min-h-screen bg-[#0D1117] flex flex-col">
+      <div className="flex flex-col justify-center items-center min-h-[300px] md:min-h-[400px] py-10">
         <Title />
         <div className="w-full max-w-md md:max-w-2xl lg:max-w-3xl mt-4 md:mt-8 px-4">
           <Form handleSubmit={handleSubmit} />
         </div>
       </div>
 
-      <UsersList users={users} loading={loading} handleClick={handleClick} />
+      <div className="flex-grow relative">
+        <UsersList users={users} loading={loading} handleClick={handleClick} />
+      </div>
 
       {selectedUser && selectedUser.login && (
         <UserCard user={selectedUser} onClose={() => setSelectedUser(null)} />

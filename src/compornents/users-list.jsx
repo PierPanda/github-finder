@@ -30,7 +30,7 @@ export default function UsersList({ users, loading, handleClick }) {
   };
 
   return users?.length > 0 ? (
-    <div className="w-full flex justify-center px-4 mb-20">
+    <div className="flex justify-center md:justify-start px-4 mb-20">
       <ul
         className="md:fixed md:top-5 md:bottom-5 p-5 flex flex-col justify-start gap-2 overflow-auto w-full max-w-xs md:w-80 md:m-5 hide-scrollbar"
         style={{ listStyle: "none" }}
