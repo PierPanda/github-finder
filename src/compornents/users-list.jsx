@@ -38,7 +38,7 @@ export default function UsersList({ users, loading, handleClick }) {
         {users.map((user) => (
           <li
             key={user.id}
-            className={`border bg-amber-50 border-gray-300 text-center rounded-md p-2 cursor-pointer hover:border-blue-500 ${
+            className={`border bg-amber-50 text-center rounded-md p-2 cursor-pointer hover:border-blue-500 ${
               lastUser === user.login ? "bg-blue-50" : ""
             }`}
             onClick={(e) => handleUserClick(e, user.login)}
@@ -49,7 +49,7 @@ export default function UsersList({ users, loading, handleClick }) {
                 alt={`Avatar de ${user.login}`}
                 className="w-10 h-10 rounded-full"
               />
-              <span className="font-bold text-xl">{user.login}</span>
+              <span className="font-bold text-base">{user.login}</span>
             </div>
           </li>
         ))}
